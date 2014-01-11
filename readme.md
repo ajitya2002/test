@@ -1,6 +1,3 @@
-/*Created by: Ajit Singh
-Date: 12/01/2014 */
-
 Pre-conditions:
 a) > PHP 5.3.x  
 b) curl must be enabled for CLI.
