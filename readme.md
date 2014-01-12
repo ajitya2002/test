@@ -1,5 +1,5 @@
 Pre-conditions:
-a) > PHP 5.3.x  
+a) >= PHP 5.3.x  
 b) curl must be enabled for CLI.
 
 How to run the script in CLI?
