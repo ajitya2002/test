@@ -16,6 +16,7 @@ class requestSendApi extends repositoryFactory {
 
     public function requestApi($argv, $arguments) {
         try {
+            $argv = $this->arrayKeyCheck($argv);
             $paraArray = array(
                 "apiRepoUrl" => 5,
                 "issueTitle" => 6,
@@ -60,6 +61,22 @@ class requestSendApi extends repositoryFactory {
         } else {
             echo "No Service found.";
         }
+    }
+
+    /* @param array $output 
+     * @return array $output.
+     */
+
+    private function arrayKeyCheck($output = array()) {
+
+        $keys = array_keys($output);
+        $desired_keys = array(5, 6, 7);
+        foreach ($desired_keys as $desired_key) {
+            if (in_array($desired_key, $keys))
+                continue;  // already set
+            $output[$desired_key] = '';
+        }
+        return $output;
     }
 
 }
