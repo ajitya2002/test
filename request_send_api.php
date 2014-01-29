@@ -2,13 +2,30 @@
 
 /* * ***************************************************************************
  * requestSendApi extends repositoryFactory class to call repository services.
- * Author - Ajit Singh
+ * @Author - Ajit Singh
  * Created Date: 28/01/2014 
  * *************************************************************************** */
 
 include_once "repository_factory.php";
 
 class requestSendApi extends repositoryFactory {
+
+    private $apiRepoUrlPos;
+    private $issueTitlePos;
+    private $issueDescriptionPos;
+
+    /* @param int $apiRepoUrlPos 
+     * @param int $issueTitlePos
+     * @param int $issueDescriptionPos
+     * Parameterised constructor
+     */
+
+    public function __construct($apiRepoUrlPos, $issueTitlePos, $issueDescriptionPos) {
+        $this->apiRepoUrlPos = $apiRepoUrlPos;
+        $this->issueTitlePos = $issueTitlePos;
+        $this->issueDescriptionPos = $issueDescriptionPos;
+    }
+
     /* @param array $argv 
      * @param array $arguments
      * @return string JSON containing [headers] and [response] received from Github.
@@ -17,23 +34,18 @@ class requestSendApi extends repositoryFactory {
     public function requestApi($argv, $arguments) {
         try {
             $argv = $this->arrayKeyCheck($argv);
-            $paraArray = array(
-                "apiRepoUrl" => 5,
-                "issueTitle" => 6,
-                "issueDescription" => 7
-            );
             if (empty($arguments['u'])) {
                 echo "Username required";
             } elseif (empty($arguments['p'])) {
                 echo "Password  required";
-            } elseif (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $argv[$paraArray['apiRepoUrl']])) {
+            } elseif (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $argv[$this->apiRepoUrlPos])) {
                 echo "Invalid url";
-            } elseif (empty($argv[$paraArray['issueTitle']])) {
+            } elseif (empty($argv[$this->issueTitlePos])) {
                 echo "Title required";
-            } elseif (empty($argv[$paraArray['issueDescription']])) {
+            } elseif (empty($argv[$this->issueDescriptionPos])) {
                 echo "Description Required";
             } else {
-                return $this->callService($arguments['u'], $arguments['p'], $argv[$paraArray['apiRepoUrl']], $argv[$paraArray['issueTitle']], $argv[$paraArray['issueDescription']]);
+                return $this->callService($arguments['u'], $arguments['p'], $argv[$this->apiRepoUrlPos], $argv[$this->issueTitlePos], $argv[$this->issueDescriptionPos]);
             }
         } catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n";
@@ -52,12 +64,10 @@ class requestSendApi extends repositoryFactory {
     private function callService($username, $password, $apiRepoUrl, $issueTitle, $issueDescription) {
         if (strpos($apiRepoUrl, 'github') !== false) {
             $repositoryObj = $this->getInstance('github');
-            $response = $repositoryObj->createIssue($username, $password, $apiRepoUrl, $issueTitle, $issueDescription);
-            return $response;
+            return $repositoryObj->createIssue($username, $password, $apiRepoUrl, $issueTitle, $issueDescription);
         } elseif (strpos($apiRepoUrl, 'bitbucket') !== false) {
             $repositoryObj = $this->getInstance('bitbucket');
-            $response = $repositoryObj->createIssue($username, $password, $apiRepoUrl, $issueTitle, $issueDescription);
-            return $response;
+            return $repositoryObj->createIssue($username, $password, $apiRepoUrl, $issueTitle, $issueDescription);
         } else {
             echo "No Service found.";
         }
@@ -68,9 +78,8 @@ class requestSendApi extends repositoryFactory {
      */
 
     private function arrayKeyCheck($output = array()) {
-
         $keys = array_keys($output);
-        $desired_keys = array(5, 6, 7);
+        $desired_keys = array($this->apiRepoUrlPos, $this->issueTitlePos, $this->issueDescriptionPos);
         foreach ($desired_keys as $desired_key) {
             if (in_array($desired_key, $keys))
                 continue;  // already set
