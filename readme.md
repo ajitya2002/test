@@ -25,6 +25,6 @@ $ php create_issue.php -u :username -p :password https://bitbucket.org/api/1.0/r
 
 Replace the following place holder:
 
-:username=> Give original username of github/bitbucket.
-:password=> Give original password of github/bitbucket.
-:repository=> Give original repository name of github/bitbucket.
+:username=> Username of github/bitbucket.
+:password=> Password of github/bitbucket.
+:repository=> Repository name of github/bitbucket.
