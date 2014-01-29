@@ -2,7 +2,7 @@
 
 /* * *****************************************************************************
  * Github repository service class
- * Author - Ajit Singh
+ * @Author - Ajit Singh
  * Created Date: 27/01/2014 
  * *************************************************************************** */
 
@@ -18,11 +18,8 @@ class github {
 
     public function createIssue($username, $password, $apiRepoUrl, $issueTitle, $issueDescription) {
 
-        /*  uncomment for linux */
-        //$agent = 'Mozilla/5.0 (X11; U; Linux i686; pl-PL; rv:1.9.0.2) Gecko/20121223 Ubuntu/9.25 (jaunty) Firefox/3.8';
-
-        /* For Window */
-        $agent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13';
+        /* $agent for window environment */
+        $agent = '(Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311';
         $data = array("title" => $issueTitle, "body" => $issueDescription);
         $dataString = json_encode($data);
         $ch = curl_init();
