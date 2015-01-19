@@ -5,7 +5,7 @@
  * @Author - Ajit Singh
  * Created Date: 27/01/2014 
  * *************************************************************************** */
-
+namespace Repository\Factory;
 class repositoryFactory {
 
     /**

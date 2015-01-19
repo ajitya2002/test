@@ -5,7 +5,8 @@
  * @Author - Ajit Singh
  * Created Date: 28/01/2014 
  * *************************************************************************** */
-
+namespace Request\Send\Api;
+use Repository\Factory\repositoryFactory as repositoryFactory;
 include_once "repository_factory.php";
 
 class requestSendApi extends repositoryFactory {
@@ -33,6 +34,7 @@ class requestSendApi extends repositoryFactory {
 
     public function requestApi($argv, $arguments) {
         try {
+            
             $argv = $this->arrayKeyCheck($argv);
             if (empty($arguments['u'])) {
                 echo "Username required";
