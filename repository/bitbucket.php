@@ -5,7 +5,6 @@
  * @Author - Ajit Singh
  * Created Date: 28/01/2014 
  * *************************************************************************** */
-namespace Repository\Bitbucket;
 
 class bitbucket {
     /* @param string $username (bitbucket repository username)
