@@ -4,7 +4,10 @@ Pre-conditions:
 a) >= PHP 5.3.x
 b) curl must be enabled for CLI.
 
-
+Propose of Application:
+*************************
+Create issue on github or bitbucket using php command line.
+   
 How to run the script in CLI?
 *******************************
 
