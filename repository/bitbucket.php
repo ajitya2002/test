@@ -9,14 +9,14 @@
 class bitbucket {
     /* @param string $username (bitbucket repository username)
      * @param string $password (bitbucket repository password)
-     * @param string $apiRepoUrl (https://bitbucket.org/api/1.0/repositories/:username/:repository)
+     * @param string $apiRepoName (bitbucket repository name)
      * @param string $issueTitle (bitbucket repository issues title)
      * @param string $issueDescription (bitbucket repository issues description)
      * 
      * @return string JSON containing [headers] and [response] received from bitbucket.
      */
 
-    public function createIssue($username, $password, $apiRepoUrl, $issueTitle, $issueDescription) {
+    public function createIssue($username, $password, $apiRepoName, $issueTitle, $issueDescription) {
 
         $data = array("title" => $issueTitle, "content" => $issueDescription);
         // Build POST url:
@@ -25,6 +25,7 @@ class bitbucket {
             $dataString .= $key . '=' . $value . '&';
         }
         rtrim($dataString, '&');
+         $apiRepoUrl = "https://bitbucket.org/api/1.0/repositories/$username/$apiRepoName";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($dataString)));
         curl_setopt($ch, CURLOPT_URL, $apiRepoUrl . '/issues');

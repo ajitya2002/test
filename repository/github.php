@@ -9,19 +9,20 @@
 class github {
     /* @param string $username (github repository username)
      * @param string $password (github repository password)
-     * @param string $apiRepoUrl (https://api.github.com/repos/:username/:repository)
+     * @param string $apiRepoName (github repository name)
      * @param string $issueTitle (github repository issues title)
      * @param string $issueDescription (github repository issues description)
      * 
      * @return string JSON containing [headers] and [response] received from Github.
      */
 
-    public function createIssue($username, $password, $apiRepoUrl, $issueTitle, $issueDescription) {
+    public function createIssue($username, $password, $apiRepoName, $issueTitle, $issueDescription) {
 
         /* $agent for window environment */
         $agent = '(Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311';
         $data = array("title" => $issueTitle, "body" => $issueDescription);
         $dataString = json_encode($data);
+        $apiRepoUrl= "https://api.github.com/repos/$username/$apiRepoName";
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($ch, CURLOPT_URL, $apiRepoUrl . '/issues');
